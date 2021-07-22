@@ -1,0 +1,22 @@
+{
+  "name": "bosses",
+  "version": "1.0.0",
+  "description": "A way to generate a team profile with the command line",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Mindydiane/bosses.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Mindydiane/bosses/issues"
+  },
+  "homepage": "https://github.com/Mindydiane/bosses#readme"
+}
