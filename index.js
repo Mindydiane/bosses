@@ -51,13 +51,33 @@ const questions = [
 {
   type: "input",
   name: "email",
-  message: "Enter Employee's email address: (*)"
+  message: "Enter Employee's email address: (*)",
+  validate: validEmail=>
+  {
+    if(validEmail)
+    {
+        let email=/\S+@\S+\.\S+/;
+        if(validEmail.match(email))
+        {
+            return true;
+        }
+        else{
+            console.log("Invalid Emaill Address");
+        }
+    }
+  else 
+    {
+    console.log("Email is required!");
+    return false;
+    }
+  }
 },
 {
-  type: "input",
-  name: "id",
-  message: "Select the ${'name} role: (*)"
-}
+  type: "checkbox",
+  name: "role",
+  message: "Select the Employee's role: (*)",
+  choices: ['Engineer', 'Manager', 'Intern']
+  }
 ]
 
 function startPoint()
