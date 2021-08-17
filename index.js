@@ -96,6 +96,24 @@ const managerQuestions = () => {
   ]);
 };
 
+const engineerQuestions = () => {
+  inquirer.prompt([
+    {
+      type: "input",
+      name: "github",
+      message: "Enter Engineer's Github Username",
+      validate: (validGithub) => {
+        if (validGithub) {
+          return true;
+        } else {
+          console.log("Github Username is Required!");
+          return false;
+        }
+      },
+    },
+  ]);
+};
+
 const startPoint = () => {
   inquirer.prompt(questions);
 };
