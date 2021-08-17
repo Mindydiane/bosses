@@ -139,6 +139,14 @@ const internQuestions = () => {
 };
 
 const startPoint = () => {
-  inquirer.prompt(questions);
+  inquirer.prompt(questions).then((Employee) => {
+    if (Employee.role == "Manager") {
+      managerQuestions();
+    } else if (Employee.role == "Engineer") {
+      engineerQuestions();
+    } else if (Employee.role == "Intern") {
+      internQuestions();
+    }
+  });
 };
 startPoint();
