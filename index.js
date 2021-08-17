@@ -6,6 +6,7 @@ const fs = require("fs");
 const Manager = require("./lib/Manager");
 const Intern = require("./lib/Intern");
 const Engineer = require("./lib/Engineer");
+const { type } = require("os");
 
 // all employees data storage
 const employees = [];
@@ -72,7 +73,7 @@ const questions = [
   },
 ];
 
-const managerQuestions = () => {
+const mgrQuestions = () => {
   inquirer.prompt([
     {
       type: "input",
@@ -96,7 +97,7 @@ const managerQuestions = () => {
   ]);
 };
 
-const engineerQuestions = () => {
+const engQuestions = () => {
   inquirer.prompt([
     {
       type: "input",
@@ -138,15 +139,40 @@ const internQuestions = () => {
   ]);
 };
 
+const addEmp =()=> {
+ inquirer.prompt(questions).then(Employee => {
+   if(Employee.role=="Manager")
+ {
+   mgrQuestions();
+ }
+ else if(Employee.role=="Engineer")
+ {
+   engQuestions();
+ }
+ else if(Employee.role=="Intern") 
+ {
+  internQuestions();
+ }
+ }) 
+}
+
 const startPoint = () => {
-  inquirer.prompt(questions).then((Employee) => {
-    if (Employee.role == "Manager") {
-      managerQuestions();
-    } else if (Employee.role == "Engineer") {
-      engineerQuestions();
-    } else if (Employee.role == "Intern") {
-      internQuestions();
-    }
-  });
-};
+  addEmp();
+  inquirer.prompt( 
+    {
+      type: "confirm",
+      name: "AddEmployee",
+      message: "Would you like to add more employees? (*)",
+    })
+    .then (function(response)
+    {
+      if(response.AddEmployee===true)
+      {
+        addEmp();
+      }
+      else{
+        console.log("write html")
+      }
+    })
+
 startPoint();
