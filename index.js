@@ -139,40 +139,33 @@ const internQuestions = () => {
   ]);
 };
 
-const addEmp =()=> {
- inquirer.prompt(questions).then(Employee => {
-   if(Employee.role=="Manager")
- {
-   mgrQuestions();
- }
- else if(Employee.role=="Engineer")
- {
-   engQuestions();
- }
- else if(Employee.role=="Intern") 
- {
-  internQuestions();
- }
- }) 
-}
+const addEmp = () => {
+  inquirer.prompt(questions).then((Employee) => {
+    if (Employee.role == "Manager") {
+      mgrQuestions();
+    } else if (Employee.role == "Engineer") {
+      engQuestions();
+    } else if (Employee.role == "Intern") {
+      internQuestions();
+    }
+  });
+};
 
 const startPoint = () => {
   addEmp();
-  inquirer.prompt( 
-    {
+  inquirer
+    .prompt({
       type: "confirm",
       name: "AddEmployee",
       message: "Would you like to add more employees? (*)",
     })
-    .then (function(response)
-    {
-      if(response.AddEmployee===true)
-      {
+    .then(function (response) {
+      if (response.AddEmployee === true) {
         addEmp();
+      } else {
+        console.log("write html");
       }
-      else{
-        console.log("write html")
-      }
-    })
+    });
+};
 
 startPoint();
