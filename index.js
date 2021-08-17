@@ -114,6 +114,30 @@ const engineerQuestions = () => {
   ]);
 };
 
+const internQuestions = () => {
+  inquirer.prompt([
+    {
+      type: "input",
+      name: "school",
+      message: "Enter Intern's School Name",
+      validate: (validIntern) => {
+        if (validIntern) {
+          let letters = /^[A-z a-z]+$/;
+          if (validIntern.match(letters)) {
+            return true;
+          } else {
+            console.log("School Name should have Alphabet letters Only");
+            return false;
+          }
+        } else {
+          console.log("Intern's school name is required!");
+          return false;
+        }
+      },
+    },
+  ]);
+};
+
 const startPoint = () => {
   inquirer.prompt(questions);
 };
