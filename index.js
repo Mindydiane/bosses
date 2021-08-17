@@ -22,7 +22,7 @@ const questions = [
         return true;
       }
       else {
-        console.log("ID must be 0-9 digits only");
+        console.log("Must be 0-9 digits only");
         return false;
       }
     }
@@ -56,22 +56,22 @@ const questions = [
   {
     if(validEmail)
     {
-        let email=/\S+@\S+\.\S+/;
+      //string@anystring.any string S
+        let email= /\S+@\S+\.\S+/;
         if(validEmail.match(email))
         {
             return true;
         }
-        else{
+        else {
             console.log("Invalid Emaill Address");
         }
     }
-  else 
-    {
+      else {
     console.log("Email is required!");
     return false;
+      }
     }
-  }
-},
+  },
 {
   type: "checkbox",
   name: "role",
