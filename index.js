@@ -12,16 +12,24 @@ const employees = [];
 
 const questions = [
 {
-
+  type: "input",
+  name: "id",
+  message: "Enter Employee's ID: (*)"
 },
 {
-
+  type: "input",
+  name: "name",
+  message: "Enter Employee's name: (*)"
 },
 {
-
+  type: "input",
+  name: "email",
+  message: "Enter Employee's email address: (*)"
 },
 {
-  
+  type: "input",
+  name: "id",
+  message: "Select the ${'name} role: (*)"
 }
 ]
 
