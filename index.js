@@ -9,7 +9,7 @@ const Engineer = require("./lib/Engineer");
 const { type } = require("os");
 
 // all employees data storage
-const employees = [];
+const emp = [];
 
 const questions = [
   {
