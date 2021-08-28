@@ -2,14 +2,14 @@
 const inquirer = require("inquirer");
 const fs = require("fs");
 
-// //importing classes
-// const Manager = require("./lib/Manager");
-// const Intern = require("./lib/Intern");
-// const Engineer = require("./lib/Engineer");
-// const { type } = require("os");
+//importing classes
+const Manager = require("./lib/Manager");
+const Intern = require("./lib/Intern");
+const Engineer = require("./lib/Engineer");
+const { type } = require("os");
 
-// // all employees data storage
-// const emp = [];
+// all employees data storage
+const emp = [];
 
 // const questions = [
 //   {
