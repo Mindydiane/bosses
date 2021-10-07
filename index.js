@@ -1,5 +1,5 @@
-//generate html 
-const {writeFile, copyFile } = require('./')
+// //generate html 
+// const {writeFile, copyFile } = require('./')
 
 //npm packages
 const inquirer = require("inquirer");
