@@ -1,13 +1,13 @@
-// //generate html 
-// const {writeFile, copyFile } = require('./')
-const render = require('./src/page-template');
+
+//npm packages
+const inquirer = require("inquirer");
 const fs = require('fs');
 const path = require('path');
 const OUTPUT_DIR = path.resolve(__dirname, "output");
 const outputPath = path.join(OUTPUT_DIR, "team.html")
-
-//npm packages
-const inquirer = require("inquirer");
+// //generate html 
+// const {writeFile, copyFile } = require('./')
+const render = require('./src/page-template');
 
 //importing classes
 const Manager = require("./lib/Manager");
@@ -51,23 +51,23 @@ const questions = [
 //   ]);
 // };
 
-// const engQuestions = () => {
-//   inquirer.prompt([
-//     {
-//       type: "input",
-//       name: "github",
-//       message: "Enter Engineer's Github Username",
-//       validate: (validGithub) => {
-//         if (validGithub) {
-//           return true;
-//         } else {
-//           console.log("Github Username is Required!");
-//           return false;
-//         }
-//       },
-//     },
-//   ]);
-// };
+const engQuestions = () => {
+  inquirer.prompt([
+    {
+      type: "input",
+      name: "github",
+      message: "Enter Engineer's Github Username",
+      validate: (validGithub) => {
+        if (validGithub) {
+          return true;
+        } else {
+          console.log("Github Username is Required!");
+          return false;
+        }
+      },
+    },
+  ]);
+};
 
 // const internQuestions = () => {
 //   inquirer.prompt([
