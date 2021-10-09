@@ -1,5 +1,10 @@
 // //generate html 
 // const {writeFile, copyFile } = require('./')
+const render = require('./src/page-template');
+const fs = require('fs');
+const path = require('path');
+const OUTPUT_DIR = path.resolve(__dirname, "output");
+const outputPath = path.join(OUTPUT_DIR, "team.html")
 
 //npm packages
 const inquirer = require("inquirer");
@@ -22,29 +27,29 @@ const questions = [
   },
 ];
 
-const mgrQuestions = () => {
-  inquirer.prompt([
-    {
-      type: "input",
-      name: "officeNumber",
-      message: "Enter manager's office number",
-      validate: (validOffiNumber) => {
-        if (validOffiNumber) {
-          let num = parseInt(validOffiNumber);
-          if (Number.isInteger(num)) {
-            return true;
-          } else {
-            console.log("Must be 0-9 digits only");
-            return false;
-          }
-        } else {
-          console.log("Office Number is required!");
-          return false;
-        }
-      },
-    },
-  ]);
-};
+// const mgrQuestions = () => {
+//   inquirer.prompt([
+//     {
+//       type: "input",
+//       name: "officeNumber",
+//       message: "Enter manager's office number",
+//       validate: (validOffiNumber) => {
+//         if (validOffiNumber) {
+//           let num = parseInt(validOffiNumber);
+//           if (Number.isInteger(num)) {
+//             return true;
+//           } else {
+//             console.log("Must be 0-9 digits only");
+//             return false;
+//           }
+//         } else {
+//           console.log("Office Number is required!");
+//           return false;
+//         }
+//       },
+//     },
+//   ]);
+// };
 
 // const engQuestions = () => {
 //   inquirer.prompt([
@@ -118,11 +123,12 @@ const promptNextTeamMember = () => {
       addEmp();
     } else {
       console.log("write html");
+      makeTeam();
     }
   });
 }
 
-const run = () => {
+const mgrQuestions = () => {
   inquirer
   .prompt([
     {
@@ -157,8 +163,15 @@ const run = () => {
  
 };
 
-run();
+addEmp();
 
+function makeTeam() {
+  //create the folder if the path doesn't exist
+  if(!fs.existsSync(OUTPUT_DIR)){
+    fs.mkdirSync(OUTPUT_DIR)
+  }
+  fs.writeFileSync(outputPath, render(emp), "utf-8")
+}
 
 /**
  * collect an array of team members
