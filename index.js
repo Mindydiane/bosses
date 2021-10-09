@@ -19,10 +19,6 @@ const questions = [
     name: "id",
     message: "Enter Employee's ID: (*)",
     
-    type: "checkbox",
-    name: "role",
-    message: "Select the Employee's role: (*)",
-    choices: ["Engineer", "Manager", "Intern"],
   },
 ];
 
@@ -92,33 +88,97 @@ const mgrQuestions = () => {
 //   ]);
 // };
 
-// const addEmp = () => {
-//   inquirer.prompt(questions).then((Employee) => {
-//     if (Employee.role == "Manager") {
-//       mgrQuestions();
-//     } else if (Employee.role == "Engineer") {
-//       engQuestions();
-//     } else if (Employee.role == "Intern") {
-//       internQuestions();
-//     }
-//   });
-// };
+const addEmp = () => {
+  inquirer.prompt([{
+    type: "list",
+    name: "role",
+    message: "Select the Employee's role: (*)",
+    choices: ["Engineer", "Manager", "Intern"],
+  }])
+  .then((Employee) => {
+    if (Employee.role == "Manager") {
+      mgrQuestions();
+    } else if (Employee.role == "Engineer") {
+      engQuestions();
+    } else if (Employee.role == "Intern") {
+      internQuestions();
+    }
+  });
+};
 
-// const run = () => {
-//   addEmp();
-//   inquirer
-//     .prompt({
-//       type: "confirm",
-//       name: "AddEmployee",
-//       message: "Would you like to add more employees? (*)",
-//     })
-//     .then(function (response) {
-//       if (response.AddEmployee === true) {
-//         addEmp();
-//       } else {
-//         console.log("write html");
-//       }
-//     });
-// };
+const promptNextTeamMember = () => {
+  inquirer
+  .prompt({
+    type: "confirm",
+    name: "AddEmployee",
+    message: "Would you like to add more employees? (*)",
+  })
+  .then(function (response) {
+    if (response.AddEmployee === true) {
+      addEmp();
+    } else {
+      console.log("write html");
+    }
+  });
+}
 
-// run();
+const run = () => {
+  inquirer
+  .prompt([
+    {
+      type: "input",
+      name: "name",
+      message: "What is the Manager's name?"
+    },
+    {
+     type: "input",
+     name: "id",
+     message: "What is the Manager's id number?" 
+    },
+    {
+      type: "input",
+      name: "email",
+      message: "What is the email address?"
+    },
+    {
+      type: "input",
+      name: "officeNumber",
+      message: "What is the office number?"
+    }
+  ])
+  .then(input => {
+    // console.log(input);
+    const manager = new Manager(input.name, input.id, input.email, input.officeNumber)
+    // console.log(manager);
+    emp.push(manager)
+    console.log(emp);
+    promptNextTeamMember();
+  })
+ 
+};
+
+run();
+
+
+/**
+ * collect an array of team members
+ * inquire who is the manager?
+ * create manager object
+ * push to array of team members
+ * inquire if they would like to add new team member
+ * 
+ * if they choose no then create our team page with all members in the array
+ * 
+ * if they choose yes then inquire what type of member they would like to add?
+ * 
+ * if they choose engineer then inquire all data for engineer
+ * create engineer object
+ * push to array of team members
+ * inquire if they would like to add new team member
+ * 
+ * if they choose intern then inquire all data for intern
+ * create intern object
+ * push to array of team members
+ * inquire if they would like to add new team member
+ * 
+ */
