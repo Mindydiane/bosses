@@ -18,14 +18,16 @@ const Engineer = require("./lib/Engineer");
 // all employees data storage
 const emp = [];
 
-const questions = [
+const questions = () =>{ 
+inquirer
+.prompt([
   {
     type: "input",
-    name: "id",
-    message: "Enter Employee's ID: (*)",
-    
-  },
-];
+    name: "managerName",
+    message: "Please"
+  }
+])  
+}
 
 // const mgrQuestions = () => {
 //   inquirer.prompt([
