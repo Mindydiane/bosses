@@ -284,10 +284,10 @@ userQuestions();
 // TODO: Create a function to initialize app
 const buildPage = (teamArray) => {
   console.log(teamArray)
-    if(!fs.existsSync(displayPage)){
-      fs.mkdirSync(displayPage)
+    if(!fs.existsSync(displayPg)){
+      fs.mkdirSync(displayPg)
     }
-    fs.writeFileSync(indexPath, generatePage(teamArray), "utf-8", err =>{
+    fs.writeFileSync(indexPath, generatePg(teamArray), "utf-8", err =>{
       if(err){
         rejects(err);
         return;

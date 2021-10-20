@@ -67,3 +67,11 @@ const teamBuild = (team) => {
 
     return teamInfo;
 };
+
+  // destructure pg data by section
+  module.exports = team => {
+    return `
+    
+    `
+  }
+
