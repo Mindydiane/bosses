@@ -22,7 +22,7 @@ const userQuestions = () => {
       {
         type: "input",
         name: "managerName",
-        message: "Please enter your name. (Required)",
+        message: "Please enter your Managers name. (Required)",
         validate: (nameInput) => {
           if (nameInput) {
             return true;
@@ -80,6 +80,7 @@ const userQuestions = () => {
     });
 };
 
+// variable to create team w/inquirer prompt
 const createTeam = () => {
   inquirer
     .prompt([
@@ -101,6 +102,7 @@ const createTeam = () => {
     });
 };
 
+// variable to prompt Engineer questions
 const promptEngineer = () => {
   inquirer
     .prompt([
@@ -175,6 +177,7 @@ const promptEngineer = () => {
     });
 };
 
+// confirm employee, would you like to add another team member?
 const employeeConfirm = () => {
   inquirer
     .prompt([
@@ -194,6 +197,7 @@ const employeeConfirm = () => {
     });
 };
 
+// prompt Intern w/inquirer
 const promptIntern = () => {
   inquirer
     .prompt([
@@ -255,6 +259,7 @@ const promptIntern = () => {
     });
 };
 
+// build team functionality
 const buildTeam = (employeeData) => {
   // var { name, id, email, github, school } = employeeData;
   if (employeeData.managerName) {
