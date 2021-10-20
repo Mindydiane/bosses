@@ -100,6 +100,81 @@ const createTeam = () => {
       }
     });
 };
+
+const promptEngineer = () => {
+  inquirer
+    .prompt([
+      {
+        type: "input",
+        name: "engineerName",
+        message: "What is the name of the engineer? (Required)",
+        validate: (engineerNameInput) => {
+          if (engineerNameInput) {
+            return true;
+          } else {
+            console.log("You need to enter the engineer name!");
+            return false;
+          }
+        },
+      },
+      {
+        type: "input",
+        name: "engineerId",
+        message: "What is the ID Number of the engineer? (Required)",
+        validate: (engineerIdentificationInput) => {
+          if (engineerIdentificationInput) {
+            return true;
+          } else {
+            console.log("You need to enter the engineers ID Number!");
+            return false;
+          }
+        },
+      },
+      {
+        type: "link",
+        name: "engineerEmail",
+        message: "What is the email of the engineer? (Required)",
+        validate: (engineerEmailLink) => {
+          if (engineerEmailLink) {
+            return true;
+          } else {
+            console.log("You need to enter a email address!");
+            return false;
+          }
+        },
+      },
+      {
+        type: "link",
+        name: "engineerGitHub",
+        message: "What is engineers GitHub username? (Required)",
+        validate: (engineerUsernameLink) => {
+          if (engineerUsernameLink) {
+            return true;
+          } else {
+            console.log("You need to enter a username!");
+            return false;
+          }
+        },
+      },
+      {
+        type: "",
+        name: "engineerGitHub",
+        message: "What is engineers GitHub username? (Required)",
+        validate: (engineerUsernameLink) => {
+          if (engineerUsernameLink) {
+            return true;
+          } else {
+            console.log("You need to enter a username!");
+            return false;
+          }
+        },
+      },
+    ])
+    .then((engineerData) => {
+      buildTeam(engineerData);
+    });
+};
+
 /**
  * collect an array of team members
  * inquire who is the manager?
