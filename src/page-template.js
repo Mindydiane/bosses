@@ -36,7 +36,18 @@ const teamBuild = (team) => {
 
   const generateIntern = (intern) => {
     return `
-    
+    <div class="card bg-primary shadow p-1 mx-2 my-2" style="width: 18rem;">
+      <div class="card-header text-white">
+        <h3>${intern.name}</h3>
+        <h4><i class="fas fa-user-graduate"></i>  Intern</h4>
+      </div>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">ID: ${intern.id}</li>
+            <li class="list-group-item"> Email: <a href="mailto:${intern.email}">${intern.email}</a></li>
+            <li class="list-group-item"> School: ${intern.school}</li>
+        </ul>
+      </div>
+    </div>
     `
   }
 };
