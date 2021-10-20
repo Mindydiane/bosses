@@ -175,6 +175,25 @@ const promptEngineer = () => {
     });
 };
 
+const employeeConfirm = () => {
+  inquirer
+    .prompt([
+      {
+        type: "confirm",
+        name: "confirmAddEmployee",
+        message: "Would you like to add another team member?",
+        default: false,
+      },
+    ])
+    .then((confirmation) => {
+      if (confirmation.confirmAddEmployee) {
+        createTeam();
+      } else {
+        buildPage(teamArray);
+      }
+    });
+};
+
 /**
  * collect an array of team members
  * inquire who is the manager?
