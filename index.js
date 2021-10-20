@@ -194,6 +194,67 @@ const employeeConfirm = () => {
     });
 };
 
+const promptIntern = () => {
+  inquirer
+    .prompt([
+      {
+        type: "input",
+        name: "internName",
+        message: "What is the name of the intern? (Required)",
+        validate: (internNameInput) => {
+          if (internNameInput) {
+            return true;
+          } else {
+            console.log("You need to enter the intern name!");
+            return false;
+          }
+        },
+      },
+      {
+        type: "input",
+        name: "internId",
+        message: "What is the ID Number of the intern? (Required)",
+        validate: (internIdentificationInput) => {
+          if (internIdentificationInput) {
+            return true;
+          } else {
+            console.log("You need to enter the interns ID Number!");
+            return false;
+          }
+        },
+      },
+      {
+        type: "link",
+        name: "internEmail",
+        message: "What is the email of the intern? (Required)",
+        validate: (internEmailLink) => {
+          if (internEmailLink) {
+            return true;
+          } else {
+            console.log("You need to enter a email address!");
+            return false;
+          }
+        },
+      },
+      {
+        type: "input",
+        name: "internSchool",
+        message: "What is the interns school? (Required)",
+        validate: (internSchoolInput) => {
+          if (internSchoolInput) {
+            return true;
+          } else {
+            console.log("You need to enter the schools name!");
+            return false;
+          }
+        },
+      },
+    ])
+    .then((internData) => {
+      buildTeam(internData);
+    });
+};
+
 /**
  * collect an array of team members
  * inquire who is the manager?
