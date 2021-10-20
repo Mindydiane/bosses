@@ -7,8 +7,7 @@
     "lib": "lib"
   },
   "scripts": {
-    "test:unit": "jest --coverage src/*.test.js",
-    "test:integration": "jest integration/*.test.js"
+    "test": "jest"
   },
   "repository": {
     "type": "git",
