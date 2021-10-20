@@ -255,6 +255,27 @@ const promptIntern = () => {
     });
 };
 
+const buildTeam = (employeeData) => {
+  // var { name, id, email, github, school } = employeeData;
+  if (employeeData.managerName) {
+    manager = new Manager(employeeData.managerName, employeeData.managerId, employeeData.managerEmail, employeeData.managerPhone);
+    manager.getRole();
+    teamArray.push(manager)
+  } else if (employeeData.engineerName) {
+    engineer = new Engineer(employeeData.engineerName, employeeData.engineerId, employeeData.engineerEmail, employeeData.engineerGitHub);
+    engineer.getRole();
+    teamArray.push(engineer)
+  } else if (employeeData.internName) {
+    intern = new Intern(employeeData.internName, employeeData.internId, employeeData.internEmail, employeeData.internSchool);
+    intern.getRole();
+    teamArray.push(intern)
+  }
+  console.log('teamArray', teamArray);
+  employeeConfirm();
+}
+  
+userQuestions();
+
 /**
  * collect an array of team members
  * inquire who is the manager?
