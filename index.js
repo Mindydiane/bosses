@@ -17,7 +17,69 @@ const Engineer = require("./lib/Engineer");
 // all employees data storage
 const teamArray = [];
 
+const userQuestions = () => {
+  inquirer
+  .prompt([
+    {
+      type: "input",
+      name: "managerName",
+      message: "Please enter your name. (Required)",
+      validate: (nameInput) => {
+        if (nameInput) {
+          return true;
+        } else {
+          console.log("You need to enter the name of your employee!");
+          return false;
+        }
+      },
+    },
+    {
+      type: "input",
+        name: "managerId",
+        message: "Please enter your ID Number. (Required)",
+        validate: (identificationInput) => {
+          if (identificationInput) {
+            return true;
+          } else {
+            console.log("You need to enter a ID Number!");
+            return false;
+          }
+        },
+      },
 
+      {
+        type: "link",
+        name: "managerEmail",
+        message: "Please enter your email address. (Required)",
+        validate: (emailLink) => {
+          if (emailLink) {
+            return true;
+          } else {
+            console.log("You need to enter a email address!");
+            return false;
+          }
+        },
+      },
+      {
+        type: "input",
+        name: "managerPhone",
+        message: "Please enter your phone number. (Required)",
+        validate: (phoneInput) => {
+          if (phoneInput) {
+            return true;
+          } else {
+            console.log("You need to enter a phone number!");
+            return false;
+          }
+        },
+      },
+    ]).then ((answers) => {
+      console.log(answers)
+      // teamArray.push(answers);
+      buildTeam(answers);
+    });
+
+  }   
 
 /**
  * collect an array of team members
