@@ -3,15 +3,15 @@ const inquirer = require("inquirer");
 const fs = require("fs");
 const path = require("path");
 
-// generating page
-const generatePg = require("./src/page-template");
-const displayPg = require(__dirname, "dist");
-const indexPath = path.join(displayPg, "index.html");
-
 //importing classes
 const Manager = require("./lib/Manager");
 const Intern = require("./lib/Intern");
 const Engineer = require("./lib/Engineer");
+
+// generating page
+const generatePg = require("./src/page-template");
+const displayPg = require(__dirname, "dist");
+const indexPath = path.join(displayPg, "index.html");
 
 // all employees data storage
 const teamArray = [];
@@ -22,7 +22,7 @@ const userQuestions = () => {
       {
         type: "input",
         name: "managerName",
-        message: "Please enter your Managers name. (Required)",
+        message: "Please enter your name. (Required)",
         validate: (nameInput) => {
           if (nameInput) {
             return true;
@@ -61,13 +61,13 @@ const userQuestions = () => {
       },
       {
         type: "input",
-        name: "managerPhone",
-        message: "Please enter your phone number. (Required)",
-        validate: (phoneInput) => {
-          if (phoneInput) {
+        name: "officeNumber",
+        message: "Please enter your office number. (Required)",
+        validate: (officeNumber) => {
+          if (officeNumber) {
             return true;
           } else {
-            console.log("You need to enter a phone number!");
+            console.log("You need to enter a office number!");
             return false;
           }
         },

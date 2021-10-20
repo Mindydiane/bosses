@@ -4,7 +4,8 @@
   "description": "A way to generate a team profile with the command line",
   "main": "index.js",
   "directories": {
-    "lib": "lib"
+    "lib": "lib",
+    "test": "test"
   },
   "scripts": {
     "test": "jest"
