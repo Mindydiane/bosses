@@ -34,4 +34,9 @@ const teamBuild = (team) => {
     `
   }
 
+  const generateIntern = (intern) => {
+    return `
+    
+    `
+  }
 };
