@@ -71,7 +71,30 @@ const teamBuild = (team) => {
   // destructure pg data by section
   module.exports = team => {
     return `
-    
-    `
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Team Portfolio</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+        <link href="https://fonts.googleapis.com/css?family=Public+Sans:300i,300,500&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <header>
+            <div class="container-lg flex-row justify-space-between text-align-center py-3">
+                <h1 class="page-title text-light bg-danger py-2 px-3 text-center ">My Team</h1>
+            </div>
+        </header>
+        <main class="container-fluid d-inline-flex p-2 flex-wrap mxy-5 col-12 justify-content-center ml-auto ">
+             ${teamBuild(team)}
+        </main>
+    </body>
+    </html>
+    `;
   }
 
