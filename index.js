@@ -276,6 +276,24 @@ const buildTeam = (employeeData) => {
   
 userQuestions();
 
+// TODO: Create a function to initialize app
+const buildPage = (teamArray) => {
+  console.log(teamArray)
+    if(!fs.existsSync(displayPage)){
+      fs.mkdirSync(displayPage)
+    }
+    fs.writeFileSync(indexPath, generatePage(teamArray), "utf-8", err =>{
+      if(err){
+        rejects(err);
+        return;
+      }
+      resolve({
+        ok:true,
+        message:'File created'
+      });
+    });
+}
+
 /**
  * collect an array of team members
  * inquire who is the manager?
