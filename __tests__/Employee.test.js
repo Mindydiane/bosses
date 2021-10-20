@@ -8,8 +8,8 @@ test("Does get name get getName()", () =>{
 
 test("Does it register an id", () => {
     const testID = '1';
-    const empoyeeID = new Employee("David", testID, "madison@", "777-777-7777");
-    expect(empoyeeID.getId()).toBe(testID);
+    const employeeID = new Employee("David", testID, "madison@", "777-777-7777");
+    expect(employeeID.getId()).toBe(testID);
 })
 
 test("Does it register an email", () => {
