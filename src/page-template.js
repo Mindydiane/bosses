@@ -20,7 +20,17 @@ const teamBuild = (team) => {
 
   const generateEngineer = (engineer) => {
     return `
-    
+    <div class="card bg-primary shadow p-1 mx-2 my-2" style="width: 18rem;">
+      <div class="card-header text-white">
+        <h3>${engineer.name}</h3>
+        <h4><i class="fas fa-glasses"></i>  Engineer</h4>
+      </div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">ID: ${engineer.id}</li>
+        <li class="list-group-item">Email: <a href="mailto:${engineer.email}">${engineer.email}</a></li>
+        <li class="list-group-item">Github: <a href="https://github.com/${engineer.github}">${engineer.github}</a></li>
+      </ul>
+    </div> 
     `
   }
 
