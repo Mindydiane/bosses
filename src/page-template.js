@@ -51,11 +51,14 @@ const teamBuild = (team) => {
     `
   }
   console.log(team)
-const manager = team.filter(employee => employee.getRole() === 'Manager')
+  const manager = team.filter(employee => employee.getRole() === 'Manager')
     teamInfo.push(manager.map(x => generateManager(x)))
     console.log(manager)
     
-  //filter through team to find Engineers, call generateEngineer() function to map through filtered results and formulate a card for each and push to teamArray
-
-  //filter through team to find Interns, call generateIntern() function to map through filtered results and formulate a card for each and push to teamArray
+    //filter through team to find Engineers, call generateEngineer() function to map through filtered results and formulate a card for each and push to teamArray
+    const engineer = team.filter(employee => employee.getRole() === 'Engineer')
+    teamInfo.push(engineer.map(x => generateEngineer(x)))
+    console.log(engineer)
+    
+    //filter through team to find Interns, call generateIntern() function to map through filtered results and formulate a card for each and push to teamArray
 };
