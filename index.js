@@ -1,13 +1,12 @@
-
 //npm packages
 const inquirer = require("inquirer");
 const fs = require('fs');
 const path = require('path');
-const OUTPUT_DIR = path.resolve(__dirname, "output");
-const outputPath = path.join(OUTPUT_DIR, "team.html")
-// //generate html 
-// const {writeFile, copyFile } = require('./')
-const render = require('./src/page-template');
+
+// generating page
+const generatePg = require('./src/page-template');
+const displayPg = require(__dirname, "dist");
+const indexPath = path.join(displayPg, 'index.html')
 
 //importing classes
 const Manager = require("./lib/Manager");
@@ -16,164 +15,9 @@ const Engineer = require("./lib/Engineer");
 
 
 // all employees data storage
-const emp = [];
+const teamArray = [];
 
-const questions = () =>{ 
-inquirer
-.prompt([
-  {
-    type: "input",
-    name: "managerName",
-    message: "Please"
-  }
-])  
-}
 
-// const mgrQuestions = () => {
-//   inquirer.prompt([
-//     {
-//       type: "input",
-//       name: "officeNumber",
-//       message: "Enter manager's office number",
-//       validate: (validOffiNumber) => {
-//         if (validOffiNumber) {
-//           let num = parseInt(validOffiNumber);
-//           if (Number.isInteger(num)) {
-//             return true;
-//           } else {
-//             console.log("Must be 0-9 digits only");
-//             return false;
-//           }
-//         } else {
-//           console.log("Office Number is required!");
-//           return false;
-//         }
-//       },
-//     },
-//   ]);
-// };
-
-const engQuestions = () => {
-  inquirer.prompt([
-    {
-      type: "input",
-      name: "github",
-      message: "Enter Engineer's Github Username",
-      validate: (validGithub) => {
-        if (validGithub) {
-          return true;
-        } else {
-          console.log("Github Username is Required!");
-          return false;
-        }
-      },
-    },
-  ]);
-};
-
-// const internQuestions = () => {
-//   inquirer.prompt([
-//     {
-//       type: "input",
-//       name: "school",
-//       message: "Enter Intern's School Name",
-//       validate: (validIntern) => {
-//         if (validIntern) {
-//           let letters = /^[A-z a-z]+$/;
-//           if (validIntern.match(letters)) {
-//             return true;
-//           } else {
-//             console.log("School Name should have Alphabet letters Only");
-//             return false;
-//           }
-//         } else {
-//           console.log("Intern's school name is required!");
-//           return false;
-//         }
-//       },
-//     },
-//   ]);
-// };
-
-const addEmp = () => {
-  inquirer.prompt([{
-    type: "list",
-    name: "role",
-    message: "Select the Employee's role: (*)",
-    choices: ["Engineer", "Manager", "Intern"],
-  }])
-  .then((Employee) => {
-    if (Employee.role == "Manager") {
-      mgrQuestions();
-    } else if (Employee.role == "Engineer") {
-      engQuestions();
-    } else if (Employee.role == "Intern") {
-      internQuestions();
-    }
-  });
-};
-
-const promptNextTeamMember = () => {
-  inquirer
-  .prompt({
-    type: "confirm",
-    name: "AddEmployee",
-    message: "Would you like to add more employees? (*)",
-  })
-  .then(function (response) {
-    if (response.AddEmployee === true) {
-      addEmp();
-    } else {
-      console.log("write html");
-      makeTeam();
-    }
-  });
-}
-
-const mgrQuestions = () => {
-  inquirer
-  .prompt([
-    {
-      type: "input",
-      name: "name",
-      message: "What is the Manager's name?"
-    },
-    {
-     type: "input",
-     name: "id",
-     message: "What is the Manager's id number?" 
-    },
-    {
-      type: "input",
-      name: "email",
-      message: "What is the email address?"
-    },
-    {
-      type: "input",
-      name: "officeNumber",
-      message: "What is the office number?"
-    }
-  ])
-  .then(input => {
-    // console.log(input);
-    const manager = new Manager(input.name, input.id, input.email, input.officeNumber)
-    // console.log(manager);
-    emp.push(manager)
-    console.log(emp);
-    promptNextTeamMember();
-  })
- 
-};
-
-addEmp();
-
-function makeTeam() {
-  //create the folder if the path doesn't exist
-  if(!fs.existsSync(OUTPUT_DIR)){
-    fs.mkdirSync(OUTPUT_DIR)
-  }
-  fs.writeFileSync(outputPath, render(emp), "utf-8")
-}
 
 /**
  * collect an array of team members
