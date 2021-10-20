@@ -61,4 +61,9 @@ const teamBuild = (team) => {
     console.log(engineer)
     
     //filter through team to find Interns, call generateIntern() function to map through filtered results and formulate a card for each and push to teamArray
+    const intern = team.filter(employee => employee.getRole() === 'Intern')
+    teamInfo.push(intern.map(x => generateIntern(x)))
+    console.log(intern)
+
+    return teamInfo;
 };
