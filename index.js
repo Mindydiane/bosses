@@ -9,9 +9,11 @@ const Intern = require("./lib/Intern");
 const Engineer = require("./lib/Engineer");
 
 // generating page
-const generatePg = require("./src/page-template");
-const displayPg = require(__dirname, "dist");
-const indexPath = path.join(displayPg, "index.html");
+const {writeFile, copyFile } = require('./utils/generate-site');
+const generatePage = require('./src/page-template')
+const render = require('./src/page-template');
+const OUTPUT_DIR = path.resolve(__dirname, "output");
+const outputPath = path.join(OUTPUT_DIR, "team.html")
 
 // all employees data storage
 const teamArray = [];
@@ -36,8 +38,8 @@ const userQuestions = () => {
         type: "input",
         name: "managerId",
         message: "Please enter your ID Number. (Required)",
-        validate: (identificationInput) => {
-          if (identificationInput) {
+        validate: (idInput) => {
+          if (idInput) {
             return true;
           } else {
             console.log("You need to enter a ID Number!");
@@ -61,16 +63,16 @@ const userQuestions = () => {
       },
       {
         type: "input",
-        name: "officeNumber",
-        message: "Please enter your office number. (Required)",
-        validate: (officeNumber) => {
-          if (officeNumber) {
-            return true;
-          } else {
-            console.log("You need to enter a office number!");
-            return false;
-          }
-        },
+        name: "offNumber",
+        message: "Please enter your office number."
+        // validate: (officeInput) => {
+        //   if (officeInput) {
+        //     return true;
+        //   } else {
+        //     console.log("You need to enter a office number!");
+        //     return false;
+        //   }
+        // },
       },
     ])
     .then((answers) => {
@@ -78,7 +80,7 @@ const userQuestions = () => {
       // teamArray.push(answers);
       buildTeam(answers);
     });
-};
+}
 
 // variable to create team w/inquirer prompt
 const createTeam = () => {
@@ -86,21 +88,21 @@ const createTeam = () => {
     .prompt([
       {
         type: "list",
-        name: "employeeSelection",
+        name: "role",
         message: "Do you want to add an:",
         choices: ["Engineer", "Intern", "No One"],
       },
     ])
     .then((employeeChoice) => {
-      if (employeeChoice.employeeSelection === "Engineer") {
+      if (employeeChoice.role === "Engineer") {
         promptEngineer();
-      } else if (employeeChoice.employeeSelection === "Intern") {
+      } else if (employeeChoice.role === "Intern") {
         promptIntern();
       } else {
         buildPage(teamArray);
       }
     });
-};
+}
 
 // variable to prompt Engineer questions
 const promptEngineer = () => {
@@ -123,8 +125,8 @@ const promptEngineer = () => {
         type: "input",
         name: "engineerId",
         message: "What is the ID Number of the engineer? (Required)",
-        validate: (engineerIdentificationInput) => {
-          if (engineerIdentificationInput) {
+        validate: (engineerIdInput) => {
+          if (engineerIdInput) {
             return true;
           } else {
             console.log("You need to enter the engineers ID Number!");
@@ -156,7 +158,7 @@ const promptEngineer = () => {
             console.log("You need to enter a username!");
             return false;
           }
-        },
+        }
       },
       {
         type: "",
@@ -171,31 +173,31 @@ const promptEngineer = () => {
           }
         },
       },
-    ])
-    .then((engineerData) => {
-      buildTeam(engineerData);
-    });
-};
+    ]).then(engineerData => {
+      buildTeam(engineerData)
+    })
+}
 
 // confirm employee, would you like to add another team member?
-const employeeConfirm = () => {
-  inquirer
-    .prompt([
-      {
-        type: "confirm",
-        name: "confirmAddEmployee",
-        message: "Would you like to add another team member?",
-        default: false,
-      },
-    ])
-    .then((confirmation) => {
-      if (confirmation.confirmAddEmployee) {
-        createTeam();
-      } else {
-        buildPage(teamArray);
-      }
-    });
-};
+const employeeConfirm = () => {    
+  inquirer.prompt ([
+    {
+       type: "confirm",
+       name: "confirmAddEmployee",
+       message: "Would you like to add another team member?",
+       default: false,
+    }
+   
+  ]).then(confirmation => {
+     
+   if (confirmation.confirmAddEmployee) {
+     createTeam()
+   } else {
+     buildPage(teamArray);
+   }
+ 
+  })
+ }
 
 // prompt Intern w/inquirer
 const promptIntern = () => {
@@ -218,8 +220,8 @@ const promptIntern = () => {
         type: "input",
         name: "internId",
         message: "What is the ID Number of the intern? (Required)",
-        validate: (internIdentificationInput) => {
-          if (internIdentificationInput) {
+        validate: (internIdInput) => {
+          if (internIdInput) {
             return true;
           } else {
             console.log("You need to enter the interns ID Number!");
@@ -254,10 +256,10 @@ const promptIntern = () => {
         },
       },
     ])
-    .then((internData) => {
-      buildTeam(internData);
-    });
-};
+    .then(internData => {
+      buildTeam(internData)
+    })
+}
 
 // build team functionality
 const buildTeam = (employeeData) => {
@@ -278,26 +280,45 @@ const buildTeam = (employeeData) => {
   console.log('teamArray', teamArray);
   employeeConfirm();
 }
-  
-userQuestions();
 
-// TODO: Create a function to initialize app
-const buildPage = (teamArray) => {
-  console.log(teamArray)
-    if(!fs.existsSync(displayPg)){
-      fs.mkdirSync(displayPg)
-    }
-    fs.writeFileSync(indexPath, generatePg(teamArray), "utf-8", err =>{
-      if(err){
-        rejects(err);
-        return;
-      }
-      resolve({
-        ok:true,
-        message:'File created'
-      });
-    });
+createTeam();
+
+function init() {
+//create the folder if he path doesn't exist
+if(!fs.existsSync(OUTPUT_DIR)){
+  fs.mkdirSync(OUTPUT_DIR)
 }
+fs.writeFileSync(outputPath, render(emp), "utf-8")
+}
+
+
+
+// function writeToFile(fileName, data) {
+//   console.log(fileName)
+//   return new Promise((resolve, reject) => {
+//     fs.writeFile('./dist/index.html', data, err => {
+//       // if there's an error, reject the Promise and send the error to the Promise's `.catch()` method
+//       if (err) {
+//         reject(err);
+//         // return out of the function here to make sure the Promise doesn't accidentally execute the resolve() function as well
+//           return;
+//       }
+  
+//         // if everything went well, resolve the Promise and send the successful data to the `.then()` method
+//         resolve({
+//           ok: true,
+//           message: 'File created!'
+//         });
+//       });
+//     });
+//   };
+
+// // TODO: Create a function to initialize app
+// const buildPage = (teamArray) => {
+//   writeToFile("index.html", templateData(teamArray));
+// };
+
+// userQuestions();
 
 /**
  * collect an array of team members
