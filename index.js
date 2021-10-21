@@ -204,80 +204,91 @@ const promptIntern = [
   },
 ];
 
-// confirm employee, would you like to add another team member?
-const empConfirm = () => {
-  inquirer
-    .prompt([
-      {
-        type: "confirm",
-        name: "confirmAddEmployee",
-        message: "Would you like to add another team member?",
-        default: false,
-      },
-    ])
-    .then((confirmation) => {
-      if (confirmation.confirmAddEmployee) {
-        addMember();
-      } else {
-        buildPage(teamArr);
-      }
-    });
-};
+function init() {
+  promptMgr();
+}
 
-// build team functionality
-const buildTeam = (empData) => {
-  if (empData.managerName) {
-    employee = new Employee(
-      empData.managerName,
-      empData.empId,
-      empData.empEmail,
-      empData.offNumber
-    );
-    employee.getRole();
-    teamArr.push(employee);
-  } else if (empData.engineerName) {
-    engineer = new Engineer(
-      empData.engineerName,
-      empData.engineerId,
-      empData.engineerEmail,
-      empData.engineerGitHub
-    );
-    engineer.getRole();
-    teamArr.push(engineer);
-  } else if (empData.internName) {
-    intern = new Intern(
-      empData.internName,
-      empData.internId,
-      empData.internEmail,
-      empData.internSchool
-    );
-    intern.getRole();
-    teamArr.push(intern);
-  }
-  // console.log(empConfirm());
-  empConfirm();
-};
+// function to initialize mgr questions
+function promptMgr() {
+  inquirer.prompt(empQuestions).then((response) => {
+    let mgr = new Manager(response.managerName)
+  })
+}
 
-// addMember();
+// // confirm employee, would you like to add another team member?
+// const empConfirm = () => {
+//   inquirer
+//     .prompt([
+//       {
+//         type: "confirm",
+//         name: "confirmAddEmployee",
+//         message: "Would you like to add another team member?",
+//         default: false,
+//       },
+//     ])
+//     .then((confirmation) => {
+//       if (confirmation.confirmAddEmployee) {
+//         addMember();
+//       } else {
+//         buildPage(teamArr);
+//       }
+//     });
+// };
 
-empQuestions()
-  .then(addMember)
-  .then((teamData) => {
-    return generatePage(teamData);
-  })
-  .then((pageHTML) => {
-    return writeFile(pageHTML);
-  })
-  .then((writeFileResponse) => {
-    console.log(writeFileResponse);
-    return copyFile();
-  })
-  .then((copyFileResponse) => {
-    console.log(copyFileResponse);
-  })
-  .catch((err) => {
-    console.log(err);
-  });
+// // build team functionality
+// const buildTeam = (empData) => {
+//   if (empData.managerName) {
+//     employee = new Employee(
+//       empData.managerName,
+//       empData.empId,
+//       empData.empEmail,
+//       empData.offNumber
+//     );
+//     employee.getRole();
+//     teamArr.push(employee);
+//   } else if (empData.engineerName) {
+//     engineer = new Engineer(
+//       empData.engineerName,
+//       empData.engineerId,
+//       empData.engineerEmail,
+//       empData.engineerGitHub
+//     );
+//     engineer.getRole();
+//     teamArr.push(engineer);
+//   } else if (empData.internName) {
+//     intern = new Intern(
+//       empData.internName,
+//       empData.internId,
+//       empData.internEmail,
+//       empData.internSchool
+//     );
+//     intern.getRole();
+//     teamArr.push(intern);
+//   }
+//   // console.log(empConfirm());
+//   empConfirm();
+// };
+
+// // addMember();
+
+// empQuestions()
+//   .then(addMember)
+//   .then((teamData) => {
+//     return generatePage(teamData);
+//   })
+//   .then((pageHTML) => {
+//     return writeFile(pageHTML);
+//   })
+//   .then((writeFileResponse) => {
+//     console.log(writeFileResponse);
+//     return copyFile();
+//   })
+//   .then((copyFileResponse) => {
+//     console.log(copyFileResponse);
+//   })
+//   .catch((err) => {
+//     console.log(err);
+//   });
 
 // function init() {
 // //create the folder if he path doesn't exist
