@@ -238,7 +238,15 @@ function initMember() {
 
 // function to loop through emp ?s based on role
 function loopQuestions() {
-  inquirer.prompt()
+  inquirer.prompt(newRole).then((role) => {
+    if(role.memberRole === "Engineer") {
+      inquirer.prompt(promptEngineer).then((response) => {
+        let engineer = new Engineer(response.engineerName, response.engineerId, response.engineerEmail, response.github);
+        teamArr.push(engineer);
+        initMember();
+      })
+    }
+  })
 }
 
 /**
