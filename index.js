@@ -284,6 +284,9 @@ empQuestions()
 .then(teamData => {
   return generatePage(teamData);
 })
+.then(pageHTML => {
+  return writeFile(pageHTML);
+})
 
 // function init() {
 // //create the folder if he path doesn't exist
