@@ -211,7 +211,10 @@ function init() {
 // function to initialize mgr questions
 function promptMgr() {
   inquirer.prompt(empQuestions).then((response) => {
-    let mgr = new Manager(response.managerName)
+    let mgr = new Manager(response.managerName, response.empId, response.empEmail, response.offNumber);
+    teamArr.push(mgr);
+    console.log(mgr);
+    initMgr();
   })
 }
 
