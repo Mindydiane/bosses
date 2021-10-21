@@ -7,8 +7,8 @@ const Intern = require("./lib/Intern");
 const Engineer = require("./lib/Engineer");
 
 // generating page
-const { writeFile, copyFile } = require("./utils/generate-site");
-const generatePage = require("./src/page-template");
+const { writeToFile, copyFile } = require("./src/page-template");
+const generatePage = require("./utils/generate-site");
 // const OUTPUT_DIR = path.resolve(__dirname, "output");
 // const outputPath = path.join(OUTPUT_DIR, "team.html")
 
@@ -256,26 +256,3 @@ function loopQuestions() {
   })
 }
 init();
-
-/**
- * collect an array of team members
- * inquire who is the manager?
- * create manager object
- * push to array of team members
- * inquire if they would like to add new team member
- *
- * if they choose no then create our team page with all members in the array
- *
- * if they choose yes then inquire what type of member they would like to add?
- *
- * if they choose engineer then inquire all data for engineer
- * create engineer object
- * push to array of team members
- * inquire if they would like to add new team member
- *
- * if they choose intern then inquire all data for intern
- * create intern object
- * push to array of team members
- * inquire if they would like to add new team member
- *
- */
