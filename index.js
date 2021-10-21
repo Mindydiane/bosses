@@ -287,6 +287,16 @@ empQuestions()
 .then(pageHTML => {
   return writeFile(pageHTML);
 })
+.then(writeFileResponse => {
+  console.log(writeFileResponse);
+  return copyFile();
+}) 
+.then(copyFileResponse => {
+  console.log(copyFileResponse);
+})
+.catch(err => {
+  console.log(err);
+})
 
 // function init() {
 // //create the folder if he path doesn't exist
