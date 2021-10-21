@@ -1,14 +1,14 @@
 //npm packages
 const inquirer = require("inquirer");
 //importing classes
-const Employee = require("./lib/employee")
+const Employee = require("./lib/employee");
 const Manager = require("./lib/Manager");
 const Intern = require("./lib/Intern");
 const Engineer = require("./lib/Engineer");
 
 // generating page
-const {writeFile, copyFile } = require('./utils/generate-site');
-const generatePage = require('./src/page-template')
+const { writeFile, copyFile } = require("./utils/generate-site");
+const generatePage = require("./src/page-template");
 // const OUTPUT_DIR = path.resolve(__dirname, "output");
 // const outputPath = path.join(OUTPUT_DIR, "team.html")
 
@@ -17,164 +17,156 @@ const teamArr = [];
 
 // start employee questions
 const empQuestions = [
-      {
-        type: "input",
-        name: "managerName",
-        message: "Please enter your managers name. (Required)",
-        validate: (nameInput) => {
-          if (nameInput) {
-            return true;
-          } else {
-            console.log("You need to enter the name you managers name!");
-            return false;
-          }
-        },
-      },
-      {
-        type: "input",
-        name: "empId",
-        message: "Please enter your ID Number. (Required)",
-        validate: (idInput) => {
-          if (idInput) {
-            return true;
-          } else {
-            console.log("You need to enter your ID Number!");
-            return false;
-          }
-        },
-      },
-      {
-        type: "link",
-        name: "empEmail",
-        message: "Please enter your email address. (Required)",
-        validate: (emailLink) => {
-          if (emailLink) {
-            return true;
-          } else {
-            console.log("You need to enter your email address!");
-            return false;
-          }
-        },
-      },
-      {
-        type: "input",
-        name: "offNumber",
-        message: "Please enter your office number(Required).",
-        validate: (officeInput) => {
-          if (officeInput) {
-            return true;
-          } else {
-            console.log("Enter 0 if you do not have a office number");
-            return false;
-          }
-        },
-      },
-    ]
+  {
+    type: "input",
+    name: "managerName",
+    message: "Please enter your managers name. (Required)",
+    validate: (nameInput) => {
+      if (nameInput) {
+        return true;
+      } else {
+        console.log("You need to enter the name you managers name!");
+        return false;
+      }
+    },
+  },
+  {
+    type: "input",
+    name: "empId",
+    message: "Please enter your ID Number. (Required)",
+    validate: (idInput) => {
+      if (idInput) {
+        return true;
+      } else {
+        console.log("You need to enter your ID Number!");
+        return false;
+      }
+    },
+  },
+  {
+    type: "link",
+    name: "empEmail",
+    message: "Please enter your email address. (Required)",
+    validate: (emailLink) => {
+      if (emailLink) {
+        return true;
+      } else {
+        console.log("You need to enter your email address!");
+        return false;
+      }
+    },
+  },
+  {
+    type: "input",
+    name: "offNumber",
+    message: "Please enter your office number(Required).",
+    validate: (officeInput) => {
+      if (officeInput) {
+        return true;
+      } else {
+        console.log("Enter 0 if you do not have a office number");
+        return false;
+      }
+    },
+  },
+];
 
 // add a new team memeber
-const addMember =  
-{
-//   console.log(`
-// ======================
-// Add a New Team Member!
-// ======================
-// `);
+const addMember = {
+  //   console.log(`
+  // ======================
+  // Add a New Team Member!
+  // ======================
+  // `);
 
-        type: "list",
-        name: "role",
-        message: "Do you want to add a member to your team?:",
-        choices: ["Yes", "No"],
-      }
+  type: "list",
+  name: "role",
+  message: "Do you want to add a member to your team?:",
+  choices: ["Yes", "No"],
+};
 
-    const newRole = {
-      type: "list",
-      name: "newMember",
-      message: "Select the role of the new team member:",
-      choices: ["Engineer", "Intern"],
-    };
-   
+const newRole = {
+  type: "list",
+  name: "newMember",
+  message: "Select the role of the new team member:",
+  choices: ["Engineer", "Intern"],
+};
 
 // variable to prompt Engineer questions
-const promptEngineer = () => {
+const promptEngineer = [
+  {
+    type: "input",
+    name: "engineerName",
+    message: "What is the name of the engineer? (Required)",
+    validate: (engineerNameInput) => {
+      if (engineerNameInput) {
+        return true;
+      } else {
+        console.log("You need to enter the engineer name!");
+        return false;
+      }
+    },
+  },
+  {
+    type: "input",
+    name: "engineerId",
+    message: "What is the ID Number of the engineer? (Required)",
+    validate: (engineerIdInput) => {
+      if (engineerIdInput) {
+        return true;
+      } else {
+        console.log("You need to enter the engineers ID Number!");
+        return false;
+      }
+    },
+  },
+  {
+    type: "link",
+    name: "engineerEmail",
+    message: "What is the email of the engineer? (Required)",
+    validate: (engineerEmailLink) => {
+      if (engineerEmailLink) {
+        return true;
+      } else {
+        console.log("You need to enter a email address!");
+        return false;
+      }
+    },
+  },
+  {
+    type: "input",
+    name: "github",
+    message: "Enter the engineers GitHub username (Required)",
+    validate: (engineerUsernameLink) => {
+      if (engineerUsernameLink) {
+        return true;
+      } else {
+        console.log("You need to enter a github username!");
+        return false;
+      }
+    },
+  },
+];
+
+// confirm employee, would you like to add another team member?
+const empConfirm = () => {
   inquirer
     .prompt([
       {
-        type: "input",
-        name: "engineerName",
-        message: "What is the name of the engineer? (Required)",
-        validate: (engineerNameInput) => {
-          if (engineerNameInput) {
-            return true;
-          } else {
-            console.log("You need to enter the engineer name!");
-            return false;
-          }
-        },
+        type: "confirm",
+        name: "confirmAddEmployee",
+        message: "Would you like to add another team member?",
+        default: false,
       },
-      {
-        type: "input",
-        name: "engineerId",
-        message: "What is the ID Number of the engineer? (Required)",
-        validate: (engineerIdInput) => {
-          if (engineerIdInput) {
-            return true;
-          } else {
-            console.log("You need to enter the engineers ID Number!");
-            return false;
-          }
-        },
-      },
-      {
-        type: "link",
-        name: "engineerEmail",
-        message: "What is the email of the engineer? (Required)",
-        validate: (engineerEmailLink) => {
-          if (engineerEmailLink) {
-            return true;
-          } else {
-            console.log("You need to enter a email address!");
-            return false;
-          }
-        },
-      },
-      {
-        type: "input",
-        name: "github",
-        message: "Enter the engineers GitHub username (Required)",
-        validate: (engineerUsernameLink) => {
-          if (engineerUsernameLink) {
-            return true;
-          } else {
-            console.log("You need to enter a github username!");
-            return false;
-          }
-        }
+    ])
+    .then((confirmation) => {
+      if (confirmation.confirmAddEmployee) {
+        addMember();
+      } else {
+        buildPage(teamArr);
       }
-    ]).then(engineerData => {
-      buildTeam(engineerData)
-    })
-}
-
-// confirm employee, would you like to add another team member?
-const empConfirm = () => {    
-  inquirer.prompt ([
-    {
-       type: "confirm",
-       name: "confirmAddEmployee",
-       message: "Would you like to add another team member?",
-       default: false,
-    }
-   
-  ]).then(confirmation => {
-     
-   if (confirmation.confirmAddEmployee) {
-     addMember()
-   } else {
-     buildPage(teamArr);
-   }
- 
-  })
- }
+    });
+};
 
 // prompt Intern w/inquirer
 const promptIntern = () => {
@@ -233,51 +225,65 @@ const promptIntern = () => {
         },
       },
     ])
-    .then(internData => {
-      buildTeam(internData)
-    })
-}
+    .then((internData) => {
+      buildTeam(internData);
+    });
+};
 
 // build team functionality
 const buildTeam = (empData) => {
-  
   if (empData.managerName) {
-    employee = new Employee(empData.managerName, empData.empId, empData.empEmail, empData.offNumber);
+    employee = new Employee(
+      empData.managerName,
+      empData.empId,
+      empData.empEmail,
+      empData.offNumber
+    );
     employee.getRole();
-    teamArr.push(employee)
+    teamArr.push(employee);
   } else if (empData.engineerName) {
-    engineer = new Engineer(empData.engineerName, empData.engineerId, empData.engineerEmail, empData.engineerGitHub);
+    engineer = new Engineer(
+      empData.engineerName,
+      empData.engineerId,
+      empData.engineerEmail,
+      empData.engineerGitHub
+    );
     engineer.getRole();
-    teamArr.push(engineer)
+    teamArr.push(engineer);
   } else if (empData.internName) {
-    intern = new Intern(empData.internName, empData.internId, empData.internEmail, empData.internSchool);
+    intern = new Intern(
+      empData.internName,
+      empData.internId,
+      empData.internEmail,
+      empData.internSchool
+    );
     intern.getRole();
-    teamArr.push(intern)
+    teamArr.push(intern);
   }
   // console.log(empConfirm());
   empConfirm();
-}
+};
 
 // addMember();
 
 empQuestions()
-.then(addMember)
-.then(teamData => {
-  return generatePage(teamData);
-})
-.then(pageHTML => {
-  return writeFile(pageHTML);
-})
-.then(writeFileResponse => {
-  console.log(writeFileResponse);
-  return copyFile();
-}) 
-.then(copyFileResponse => {
-  console.log(copyFileResponse);
-})
-.catch(err => {
-  console.log(err);
-})
+  .then(addMember)
+  .then((teamData) => {
+    return generatePage(teamData);
+  })
+  .then((pageHTML) => {
+    return writeFile(pageHTML);
+  })
+  .then((writeFileResponse) => {
+    console.log(writeFileResponse);
+    return copyFile();
+  })
+  .then((copyFileResponse) => {
+    console.log(copyFileResponse);
+  })
+  .catch((err) => {
+    console.log(err);
+  });
 
 // function init() {
 // //create the folder if he path doesn't exist
@@ -287,8 +293,6 @@ empQuestions()
 // fs.writeFileSync(outputPath, render(emp), "utf-8")
 
 // }
-
-
 
 /**
  * collect an array of team members
