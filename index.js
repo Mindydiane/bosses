@@ -236,69 +236,10 @@ function initMember() {
   });
 }
 
-// // build team functionality
-// const buildTeam = (empData) => {
-//   if (empData.managerName) {
-//     employee = new Employee(
-//       empData.managerName,
-//       empData.empId,
-//       empData.empEmail,
-//       empData.offNumber
-//     );
-//     employee.getRole();
-//     teamArr.push(employee);
-//   } else if (empData.engineerName) {
-//     engineer = new Engineer(
-//       empData.engineerName,
-//       empData.engineerId,
-//       empData.engineerEmail,
-//       empData.engineerGitHub
-//     );
-//     engineer.getRole();
-//     teamArr.push(engineer);
-//   } else if (empData.internName) {
-//     intern = new Intern(
-//       empData.internName,
-//       empData.internId,
-//       empData.internEmail,
-//       empData.internSchool
-//     );
-//     intern.getRole();
-//     teamArr.push(intern);
-//   }
-//   // console.log(empConfirm());
-//   empConfirm();
-// };
-
-// // addMember();
-
-// empQuestions()
-//   .then(addMember)
-//   .then((teamData) => {
-//     return generatePage(teamData);
-//   })
-//   .then((pageHTML) => {
-//     return writeFile(pageHTML);
-//   })
-//   .then((writeFileResponse) => {
-//     console.log(writeFileResponse);
-//     return copyFile();
-//   })
-//   .then((copyFileResponse) => {
-//     console.log(copyFileResponse);
-//   })
-//   .catch((err) => {
-//     console.log(err);
-//   });
-
-// function init() {
-// //create the folder if he path doesn't exist
-// if(!fs.existsSync(OUTPUT_DIR)){
-//   fs.mkdirSync(OUTPUT_DIR)
-// }
-// fs.writeFileSync(outputPath, render(emp), "utf-8")
-
-// }
+// function to loop through emp ?s based on role
+function loopQuestions() {
+  inquirer.prompt()
+}
 
 /**
  * collect an array of team members
