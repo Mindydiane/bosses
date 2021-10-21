@@ -214,29 +214,14 @@ function promptMgr() {
     let mgr = new Manager(response.managerName, response.empId, response.empEmail, response.offNumber);
     teamArr.push(mgr);
     console.log(mgr);
-    initMgr();
+    initMember();
   })
 }
 
-// // confirm employee, would you like to add another team member?
-// const empConfirm = () => {
-//   inquirer
-//     .prompt([
-//       {
-//         type: "confirm",
-//         name: "confirmAddEmployee",
-//         message: "Would you like to add another team member?",
-//         default: false,
-//       },
-//     ])
-//     .then((confirmation) => {
-//       if (confirmation.confirmAddEmployee) {
-//         addMember();
-//       } else {
-//         buildPage(teamArr);
-//       }
-//     });
-// };
+// function to ask for a new team member
+function initMember() {
+  inquirer.prompt(empQuestion)
+}
 
 // // build team functionality
 // const buildTeam = (empData) => {
