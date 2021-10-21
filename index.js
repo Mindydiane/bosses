@@ -11,9 +11,8 @@ const Engineer = require("./lib/Engineer");
 // generating page
 const {writeFile, copyFile } = require('./utils/generate-site');
 const generatePage = require('./src/page-template')
-const render = require('./src/page-template');
-const OUTPUT_DIR = path.resolve(__dirname, "output");
-const outputPath = path.join(OUTPUT_DIR, "team.html")
+// const OUTPUT_DIR = path.resolve(__dirname, "output");
+// const outputPath = path.join(OUTPUT_DIR, "team.html")
 
 // all employees data storage
 const teamArray = [];
@@ -25,7 +24,7 @@ const userQuestions = () => {
         type: "input",
         name: "managerName",
         message: "Please enter your name. (Required)",
-        validate: (nameInput) => {
+        validate: nameInput => {
           if (nameInput) {
             return true;
           } else {
@@ -64,15 +63,15 @@ const userQuestions = () => {
       {
         type: "input",
         name: "offNumber",
-        message: "Please enter your office number."
-        // validate: (officeInput) => {
-        //   if (officeInput) {
-        //     return true;
-        //   } else {
-        //     console.log("You need to enter a office number!");
-        //     return false;
-        //   }
-        // },
+        message: "Please enter your office number(Required).",
+        validate: (officeInput) => {
+          if (officeInput) {
+            return true;
+          } else {
+            console.log("You need to enter a office number!");
+            return false;
+          }
+        },
       },
     ])
     .then((answers) => {
@@ -84,6 +83,12 @@ const userQuestions = () => {
 
 // variable to create team w/inquirer prompt
 const createTeam = () => {
+  console.log(`
+======================
+Add a New Team Member!
+======================
+`);
+
   inquirer
     .prompt([
       {
