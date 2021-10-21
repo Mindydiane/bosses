@@ -14,10 +14,10 @@ const generatePage = require('./src/page-template')
 // const OUTPUT_DIR = path.resolve(__dirname, "output");
 // const outputPath = path.join(OUTPUT_DIR, "team.html")
 
-// all employees data storage
-const teamArray = [];
+// // all employees data storage
+// const teamArray = [];
 
-const userQuestions = () => {
+const empQuestions = () => {
   inquirer
     .prompt([
       {
@@ -35,7 +35,7 @@ const userQuestions = () => {
       },
       {
         type: "input",
-        name: "managerId",
+        name: "empId",
         message: "Please enter your ID Number. (Required)",
         validate: (idInput) => {
           if (idInput) {
@@ -49,7 +49,7 @@ const userQuestions = () => {
 
       {
         type: "link",
-        name: "managerEmail",
+        name: "empEmail",
         message: "Please enter your email address. (Required)",
         validate: (emailLink) => {
           if (emailLink) {
@@ -74,22 +74,26 @@ const userQuestions = () => {
         },
       },
     ])
-    .then((answers) => {
-      console.log(answers);
-      // teamArray.push(answers);
-      buildTeam(answers);
-    });
+    // .then((answers) => {
+    //   console.log(answers);
+    //   // teamArray.push(answers);
+    //   buildTeam(answers);
+    // });
 }
 
 // variable to create team w/inquirer prompt
-const createTeam = () => {
+const addMember = teamData => {
   console.log(`
 ======================
 Add a New Team Member!
 ======================
 `);
 
-  inquirer
+  // If there is no  'team' array property, create one
+  if (!teamData.employees) {
+    teamData.employees = []
+  }
+  return inquirer
     .prompt([
       {
         type: "list",
@@ -196,7 +200,7 @@ const employeeConfirm = () => {
   ]).then(confirmation => {
      
    if (confirmation.confirmAddEmployee) {
-     createTeam()
+     addMember()
    } else {
      buildPage(teamArray);
    }
@@ -286,7 +290,7 @@ const buildTeam = (employeeData) => {
   employeeConfirm();
 }
 
-createTeam();
+addMember();
 
 function init() {
 //create the folder if he path doesn't exist
