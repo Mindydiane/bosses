@@ -245,9 +245,17 @@ function loopQuestions() {
         teamArr.push(engineer);
         initMember();
       })
-    }
+    } else if (role.memberRole === "Intern") {
+      inquirer.prompt(promptIntern).then((response) => {
+        let intern = new Intern(response.internName, response.internId, response.internEmail, response.internSchool);
+        teamArr.push(intern);
+        console.log(teamArr)
+        initMember();
+      })
+    } 
   })
 }
+init();
 
 /**
  * collect an array of team members
