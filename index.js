@@ -80,14 +80,14 @@ const addMember = {
   // `);
 
   type: "list",
-  name: "role",
+  name: "newEmp",
   message: "Do you want to add a member to your team?:",
   choices: ["Yes", "No"],
 };
 
 const newRole = {
   type: "list",
-  name: "newMember",
+  name: "memberRole",
   message: "Select the role of the new team member:",
   choices: ["Engineer", "Intern"],
 };
@@ -211,16 +211,29 @@ function init() {
 // function to initialize mgr questions
 function promptMgr() {
   inquirer.prompt(empQuestions).then((response) => {
-    let mgr = new Manager(response.managerName, response.empId, response.empEmail, response.offNumber);
+    let mgr = new Manager(
+      response.managerName,
+      response.empId,
+      response.empEmail,
+      response.offNumber
+    );
     teamArr.push(mgr);
     console.log(mgr);
     initMember();
-  })
+  });
 }
 
 // function to ask for a new team member
 function initMember() {
-  inquirer.prompt(empQuestion)
+  inquirer.prompt(addMember).then((newEmp) => {
+    if (newEmp.newEmp === "Yes") {
+      loopQuestions();
+    }
+    if (newEmp.newEmp === "No") {
+      writeToFile("index.html", generatePage(teamArr));
+      console.log("Your team has been created!!");
+    }
+  });
 }
 
 // // build team functionality
