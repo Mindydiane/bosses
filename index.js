@@ -99,13 +99,13 @@ Add a New Team Member!
         type: "list",
         name: "role",
         message: "Do you want to add an:",
-        choices: ["Engineer", "Intern", "No One"],
+        choices: ["Engineer", "Intern", "Finish"],
       },
     ])
-    .then((employeeChoice) => {
-      if (employeeChoice.role === "Engineer") {
+    .then((empChoice) => {
+      if (empChoice.role === "Engineer") {
         promptEngineer();
-      } else if (employeeChoice.role === "Intern") {
+      } else if (empChoice.role === "Intern") {
         promptIntern();
       } else {
         buildPage(teamArray);
@@ -157,38 +157,25 @@ const promptEngineer = () => {
         },
       },
       {
-        type: "link",
-        name: "engineerGitHub",
-        message: "What is engineers GitHub username? (Required)",
+        type: "input",
+        name: "github",
+        message: "Enter the engineers GitHub username (Required)",
         validate: (engineerUsernameLink) => {
           if (engineerUsernameLink) {
             return true;
           } else {
-            console.log("You need to enter a username!");
+            console.log("You need to enter a github username!");
             return false;
           }
         }
-      },
-      {
-        type: "",
-        name: "engineerGitHub",
-        message: "What is engineers GitHub username? (Required)",
-        validate: (engineerUsernameLink) => {
-          if (engineerUsernameLink) {
-            return true;
-          } else {
-            console.log("You need to enter a username!");
-            return false;
-          }
-        },
-      },
+      }
     ]).then(engineerData => {
       buildTeam(engineerData)
     })
 }
 
 // confirm employee, would you like to add another team member?
-const employeeConfirm = () => {    
+const empConfirm = () => {    
   inquirer.prompt ([
     {
        type: "confirm",
@@ -271,63 +258,43 @@ const promptIntern = () => {
 }
 
 // build team functionality
-const buildTeam = (employeeData) => {
-  // var { name, id, email, github, school } = employeeData;
-  if (employeeData.managerName) {
-    manager = new Manager(employeeData.managerName, employeeData.managerId, employeeData.managerEmail, employeeData.managerPhone);
-    manager.getRole();
-    teamArray.push(manager)
-  } else if (employeeData.engineerName) {
-    engineer = new Engineer(employeeData.engineerName, employeeData.engineerId, employeeData.engineerEmail, employeeData.engineerGitHub);
+const buildTeam = (empData) => {
+  
+  if (empData.managerName) {
+    employee = new Employee(empData.managerName, empData.empId, empData.empEmail, empData.offNumber);
+    employee.getRole();
+    teamArray.push(employee)
+  } else if (empData.engineerName) {
+    engineer = new Engineer(empData.engineerName, empData.engineerId, empData.engineerEmail, empData.engineerGitHub);
     engineer.getRole();
     teamArray.push(engineer)
-  } else if (employeeData.internName) {
-    intern = new Intern(employeeData.internName, employeeData.internId, employeeData.internEmail, employeeData.internSchool);
+  } else if (empData.internName) {
+    intern = new Intern(empData.internName, empData.internId, empData.internEmail, empData.internSchool);
     intern.getRole();
     teamArray.push(intern)
   }
-  console.log('teamArray', teamArray);
-  employeeConfirm();
+  // console.log(empConfirm());
+  empConfirm();
 }
 
-addMember();
+// addMember();
 
-function init() {
-//create the folder if he path doesn't exist
-if(!fs.existsSync(OUTPUT_DIR)){
-  fs.mkdirSync(OUTPUT_DIR)
-}
-fs.writeFileSync(outputPath, render(emp), "utf-8")
-}
+empQuestions()
+.then(addMember)
+.then(teamData => {
+  return generatePage(teamData);
+})
+
+// function init() {
+// //create the folder if he path doesn't exist
+// if(!fs.existsSync(OUTPUT_DIR)){
+//   fs.mkdirSync(OUTPUT_DIR)
+// }
+// fs.writeFileSync(outputPath, render(emp), "utf-8")
+
+// }
 
 
-
-// function writeToFile(fileName, data) {
-//   console.log(fileName)
-//   return new Promise((resolve, reject) => {
-//     fs.writeFile('./dist/index.html', data, err => {
-//       // if there's an error, reject the Promise and send the error to the Promise's `.catch()` method
-//       if (err) {
-//         reject(err);
-//         // return out of the function here to make sure the Promise doesn't accidentally execute the resolve() function as well
-//           return;
-//       }
-  
-//         // if everything went well, resolve the Promise and send the successful data to the `.then()` method
-//         resolve({
-//           ok: true,
-//           message: 'File created!'
-//         });
-//       });
-//     });
-//   };
-
-// // TODO: Create a function to initialize app
-// const buildPage = (teamArray) => {
-//   writeToFile("index.html", templateData(teamArray));
-// };
-
-// userQuestions();
 
 /**
  * collect an array of team members
