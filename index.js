@@ -1,9 +1,7 @@
 //npm packages
 const inquirer = require("inquirer");
-const fs = require("fs");
-const path = require("path");
-
 //importing classes
+const Employee = require("./lib/employee")
 const Manager = require("./lib/Manager");
 const Intern = require("./lib/Intern");
 const Engineer = require("./lib/Engineer");
@@ -14,21 +12,20 @@ const generatePage = require('./src/page-template')
 // const OUTPUT_DIR = path.resolve(__dirname, "output");
 // const outputPath = path.join(OUTPUT_DIR, "team.html")
 
-// // all employees data storage
-// const teamArray = [];
+// all employees data storage
+const teamArr = [];
 
-const empQuestions = () => {
-  inquirer
-    .prompt([
+// start employee questions
+const empQuestions = [
       {
         type: "input",
         name: "managerName",
-        message: "Please enter your name. (Required)",
-        validate: nameInput => {
+        message: "Please enter your managers name. (Required)",
+        validate: (nameInput) => {
           if (nameInput) {
             return true;
           } else {
-            console.log("You need to enter the name of your employee!");
+            console.log("You need to enter the name you managers name!");
             return false;
           }
         },
@@ -41,12 +38,11 @@ const empQuestions = () => {
           if (idInput) {
             return true;
           } else {
-            console.log("You need to enter a ID Number!");
+            console.log("You need to enter your ID Number!");
             return false;
           }
         },
       },
-
       {
         type: "link",
         name: "empEmail",
@@ -55,7 +51,7 @@ const empQuestions = () => {
           if (emailLink) {
             return true;
           } else {
-            console.log("You need to enter a email address!");
+            console.log("You need to enter your email address!");
             return false;
           }
         },
@@ -68,50 +64,35 @@ const empQuestions = () => {
           if (officeInput) {
             return true;
           } else {
-            console.log("You need to enter a office number!");
+            console.log("Enter 0 if you do not have a office number");
             return false;
           }
         },
       },
-    ])
-    // .then((answers) => {
-    //   console.log(answers);
-    //   // teamArray.push(answers);
-    //   buildTeam(answers);
-    // });
-}
+    ]
 
-// variable to create team w/inquirer prompt
-const addMember = teamData => {
-  console.log(`
-======================
-Add a New Team Member!
-======================
-`);
+// add a new team memeber
+const addMember =  
+{
+//   console.log(`
+// ======================
+// Add a New Team Member!
+// ======================
+// `);
 
-  // If there is no  'team' array property, create one
-  if (!teamData.employees) {
-    teamData.employees = []
-  }
-  return inquirer
-    .prompt([
-      {
         type: "list",
         name: "role",
-        message: "Do you want to add an:",
-        choices: ["Engineer", "Intern", "Finish"],
-      },
-    ])
-    .then((empChoice) => {
-      if (empChoice.role === "Engineer") {
-        promptEngineer();
-      } else if (empChoice.role === "Intern") {
-        promptIntern();
-      } else {
-        buildPage(teamArray);
+        message: "Do you want to add a member to your team?:",
+        choices: ["Yes", "No"],
       }
-    });
-}
+
+    const newRole = {
+      type: "list",
+      name: "newMember",
+      message: "Select the role of the new team member:",
+      choices: ["Engineer", "Intern"],
+    };
+   
 
 // variable to prompt Engineer questions
 const promptEngineer = () => {
@@ -189,7 +170,7 @@ const empConfirm = () => {
    if (confirmation.confirmAddEmployee) {
      addMember()
    } else {
-     buildPage(teamArray);
+     buildPage(teamArr);
    }
  
   })
@@ -263,15 +244,15 @@ const buildTeam = (empData) => {
   if (empData.managerName) {
     employee = new Employee(empData.managerName, empData.empId, empData.empEmail, empData.offNumber);
     employee.getRole();
-    teamArray.push(employee)
+    teamArr.push(employee)
   } else if (empData.engineerName) {
     engineer = new Engineer(empData.engineerName, empData.engineerId, empData.engineerEmail, empData.engineerGitHub);
     engineer.getRole();
-    teamArray.push(engineer)
+    teamArr.push(engineer)
   } else if (empData.internName) {
     intern = new Intern(empData.internName, empData.internId, empData.internEmail, empData.internSchool);
     intern.getRole();
-    teamArray.push(intern)
+    teamArr.push(intern)
   }
   // console.log(empConfirm());
   empConfirm();
