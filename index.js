@@ -65,7 +65,7 @@ const mgrQuestions = () => {
       {
         type: "input",
         name: "offNumber",
-        message: "Please enter your office number(Required).",
+        message: "Please enter your office phone number(Required).",
         validate: (officeInput) => {
           if (officeInput) {
             return true;
