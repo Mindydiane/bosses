@@ -12,3 +12,5 @@ https://watch.screencastify.com/v/6QFtBNpqq7dUXhJjHBxF
 
 ## or watch it from YouTube:
 https://www.youtube.com/watch?v=rRNXOMI1gJw
+
+![bosses-walk-through](https://user-images.githubusercontent.com/80286982/138381819-d2876391-64e2-41ee-93d5-f30cfac3dd2b.gif)
