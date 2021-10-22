@@ -5,7 +5,7 @@ A way to generate a team profile with the command line
 
 ### With Node command-line it makes it possible to do that and it generates the info to a html page!
 
-![_C__Users_Minz_Desktop_Assignments_wk-10-bosses_bosses_dist_index html (3)](https://user-images.githubusercontent.com/80286982/138411237-b45fedc4-13fa-416e-bdd5-a0fe97e54c80.png)
+![_C__Users_Minz_Desktop_Assignments_wk-10-bosses_bosses_dist_index html (4)](https://user-images.githubusercontent.com/80286982/138412431-4b41fabe-112a-4c7f-990f-aa5324f1f9ff.png)
 
 ## Fixed github link
 
