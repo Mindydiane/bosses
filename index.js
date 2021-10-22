@@ -85,11 +85,11 @@ const mgrQuestions = () => {
 
 // variable to create team w/inquirer prompt
 const addMember = teamData => {
-//   console.log(`
-// ======================
-// Add a New Team Member!
-// ======================
-// `);
+  console.log(`
+======================
+Add a New Team Member!
+======================
+`);
   inquirer
     .prompt([
       {
@@ -155,7 +155,7 @@ const promptEngineer = () => {
       },
       {
         type: "link",
-        name: "github",
+        name: "gitHub",
         message: "Enter the engineers GitHub username (Required)",
         validate: (engineerUsernameLink) => {
           if (engineerUsernameLink) {
@@ -168,7 +168,7 @@ const promptEngineer = () => {
       },
       {
         type: "",
-        name: "github",
+        name: "gitHub",
         message: "Enter the engineers GitHub username (Required)",
         validate: (engineerUsernameLink) => {
           if (engineerUsernameLink) {
