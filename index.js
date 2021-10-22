@@ -108,7 +108,7 @@ Add a New Team Member!
       } else if (empChoice.role === "Intern") {
         promptIntern();
       } else {
-        buildPage(teamArray);
+        buildTeam(teamArray);
       }
     });
 }
@@ -189,7 +189,7 @@ const empConfirm = () => {
    if (confirmation.confirmAddEmployee) {
      addMember()
    } else {
-     buildPage(teamArray);
+     buildTeam(teamArray);
    }
  
   })
