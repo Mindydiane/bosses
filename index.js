@@ -7,6 +7,7 @@ const Intern = require("./lib/Intern");
 const Engineer = require("./lib/Engineer");
 
 // generating page
+
 const { writeToFile, copyFile } = require("./src/page-template");
 const generatePage = require("./utils/generate-site");
 // const OUTPUT_DIR = path.resolve(__dirname, "output");
