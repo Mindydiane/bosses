@@ -154,7 +154,20 @@ const promptEngineer = () => {
         },
       },
       {
-        type: "input",
+        type: "link",
+        name: "github",
+        message: "Enter the engineers GitHub username (Required)",
+        validate: (engineerUsernameLink) => {
+          if (engineerUsernameLink) {
+            return true;
+          } else {
+            console.log("You need to enter a github username!");
+            return false;
+          }
+        }
+      },
+      {
+        type: "",
         name: "github",
         message: "Enter the engineers GitHub username (Required)",
         validate: (engineerUsernameLink) => {
