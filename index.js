@@ -1,97 +1,111 @@
 //npm packages
 const inquirer = require("inquirer");
 //importing classes
-const Employee = require("./lib/employee");
 const Manager = require("./lib/Manager");
 const Intern = require("./lib/Intern");
 const Engineer = require("./lib/Engineer");
 
 // generating page
-
-const { writeToFile, copyFile } = require("./src/page-template");
-const generatePage = require("./utils/generate-site");
-// const OUTPUT_DIR = path.resolve(__dirname, "output");
-// const outputPath = path.join(OUTPUT_DIR, "team.html")
+// const {writeFile, copyFile } = require('./utils/generate-site');
+const generatePg = require('./src/page-template.js');
+const { rejects } = require("assert");
+const { resolve } = require("path");
+const displayPg = path.resolve(__dirname, "dist");
+const indexPath = path.join(displayPg, "index.html")
 
 // all employees data storage
-const teamArr = [];
+const teamArray = [];
 
-// start employee questions
-const empQuestions = [
-  {
-    type: "input",
-    name: "managerName",
-    message: "Please enter your managers name. (Required)",
-    validate: (nameInput) => {
-      if (nameInput) {
-        return true;
-      } else {
-        console.log("You need to enter the name you managers name!");
-        return false;
-      }
-    },
-  },
-  {
-    type: "input",
-    name: "empId",
-    message: "Please enter your ID Number. (Required)",
-    validate: (idInput) => {
-      if (idInput) {
-        return true;
-      } else {
-        console.log("You need to enter your ID Number!");
-        return false;
-      }
-    },
-  },
-  {
-    type: "link",
-    name: "empEmail",
-    message: "Please enter your email address. (Required)",
-    validate: (emailLink) => {
-      if (emailLink) {
-        return true;
-      } else {
-        console.log("You need to enter your email address!");
-        return false;
-      }
-    },
-  },
-  {
-    type: "input",
-    name: "offNumber",
-    message: "Please enter your office number(Required).",
-    validate: (officeInput) => {
-      if (officeInput) {
-        return true;
-      } else {
-        console.log("Enter 0 if you do not have a office number");
-        return false;
-      }
-    },
-  },
-];
+const mgrQuestions = () => {
+  inquirer
+    .prompt([
+      {
+        type: "input",
+        name: "mgrName",
+        message: "Please enter your name. (Required)",
+        validate: nameInput => {
+          if (nameInput) {
+            return true;
+          } else {
+            console.log("You need to enter your name");
+            return false;
+          }
+        },
+      },
+      {
+        type: "input",
+        name: "mgrId",
+        message: "Please enter your ID Number. (Required)",
+        validate: (idInput) => {
+          if (idInput) {
+            return true;
+          } else {
+            console.log("You need to enter a ID Number!");
+            return false;
+          }
+        },
+      },
 
-// add a new team memeber
-const addMember = {
-  //   console.log(`
-  // ======================
-  // Add a New Team Member!
-  // ======================
-  // `);
+      {
+        type: "link",
+        name: "mgrEmail",
+        message: "Please enter your email address. (Required)",
+        validate: (emailLink) => {
+          if (emailLink) {
+            return true;
+          } else {
+            console.log("You need to enter a email address!");
+            return false;
+          }
+        },
+      },
+      {
+        type: "input",
+        name: "offNumber",
+        message: "Please enter your office number(Required).",
+        validate: (officeInput) => {
+          if (officeInput) {
+            return true;
+          } else {
+            console.log("You need to enter a office number!");
+            return false;
+          }
+        },
+      },
+    ])
+    .then((answers) => {
+      console.log(answers);
+      // teamArray.push(answers);
+      buildTeam(answers);
+    });
+}
 
-  type: "list",
-  name: "newEmp",
-  message: "Do you want to add a member to your team?:",
-  choices: ["Yes", "No"],
-};
-
-const newRole = {
-  type: "list",
-  name: "memberRole",
-  message: "Select the role of the new team member:",
-  choices: ["Engineer", "Intern"],
-};
+// variable to create team w/inquirer prompt
+const addMember = teamData => {
+//   console.log(`
+// ======================
+// Add a New Team Member!
+// ======================
+// `);
+  inquirer
+    .prompt([
+      {
+        type: "list",
+        name: "role",
+        message: "Do you want to add an:",
+        choices: ["Engineer", "Intern", "Finish"],
+      },
+    ])
+    .then((empChoice) => {
+      if (empChoice.role === "Engineer") {
+        promptEngineer();
+      } else if (empChoice.role === "Intern") {
+        promptIntern();
+      } else {
+        buildPg(teamArray);
+      }
+    });
+}
 
 // variable to prompt Engineer questions
 const promptEngineer = [
@@ -106,48 +120,31 @@ const promptEngineer = [
         console.log("You need to enter the engineer name!");
         return false;
       }
-    },
-  },
-  {
-    type: "input",
-    name: "engineerId",
-    message: "What is the ID Number of the engineer? (Required)",
-    validate: (engineerIdInput) => {
-      if (engineerIdInput) {
-        return true;
-      } else {
-        console.log("You need to enter the engineers ID Number!");
-        return false;
-      }
-    },
-  },
-  {
-    type: "link",
-    name: "engineerEmail",
-    message: "What is the email of the engineer? (Required)",
-    validate: (engineerEmailLink) => {
-      if (engineerEmailLink) {
-        return true;
-      } else {
-        console.log("You need to enter a email address!");
-        return false;
-      }
-    },
-  },
-  {
-    type: "input",
-    name: "github",
-    message: "Enter the engineers GitHub username (Required)",
-    validate: (engineerUsernameLink) => {
-      if (engineerUsernameLink) {
-        return true;
-      } else {
-        console.log("You need to enter a github username!");
-        return false;
-      }
-    },
-  },
-];
+    ]).then(engineerData => {
+      buildTeam(engineerData)
+    })
+}
+
+// confirm employee, would you like to add another team member?
+const empConfirm = () => {    
+  inquirer.prompt ([
+    {
+       type: "confirm",
+       name: "confirmAddEmployee",
+       message: "Would you like to add another team member?",
+       default: false,
+    }
+   
+  ]).then(confirmation => {
+     
+   if (confirmation.confirmAddEmployee) {
+     addMember()
+   } else {
+     buildPg(teamArray);
+   }
+ 
+  })
+ }
 
 // prompt Intern w/inquirer
 const promptIntern = [
@@ -205,23 +202,45 @@ const promptIntern = [
   },
 ];
 
-function init() {
-  promptMgr();
+
+
+// build team functionality
+const buildTeam = (empData) => {
+  
+  if (empData.mgrName) {
+    manager = new Manager(empData.mgrName, empData.mgrId, empData.mgrEmail, empData.offNumber);
+    manager.getRole();
+    teamArray.push(manager)
+  } else if (empData.engineerName) {
+    engineer = new Engineer(empData.engineerName, empData.engineerId, empData.engineerEmail, empData.gitHub);
+    engineer.getRole();
+    teamArray.push(engineer)
+  } else if (empData.internName) {
+    intern = new Intern(empData.internName, empData.internId, empData.internEmail, empData.internSchool);
+    intern.getRole();
+    teamArray.push(intern)
+  }
+  // console.log(empConfirm());
+  empConfirm();
 }
 
-// function to initialize mgr questions
-function promptMgr() {
-  inquirer.prompt(empQuestions).then((response) => {
-    let mgr = new Manager(
-      response.managerName,
-      response.empId,
-      response.empEmail,
-      response.offNumber
-    );
-    teamArr.push(mgr);
-    console.log(mgr);
-    initMember();
-  });
+mgrQuestions();
+
+const buildPg = (teamArray) => {
+  console.log(teamArray)
+  if(!fs.existsSync(displayPg)){
+    fs.mkdirSync(displayPg)
+  }
+  fs.writeFileSync(indexPath, generatePg(teamArray, "utf-8", err => {
+    if(err){
+      rejects(err);
+      return;
+    }
+    resolve({
+      ok:true,
+      message: 'File Created'
+    });
+  }));
 }
 
 // function to ask for a new team member
