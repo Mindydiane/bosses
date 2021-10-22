@@ -1,5 +1,8 @@
 //npm packages
 const inquirer = require("inquirer");
+const fs = require("fs");
+const path = require("path");
+
 //importing classes
 const Manager = require("./lib/Manager");
 const Intern = require("./lib/Intern");
@@ -108,17 +111,60 @@ const addMember = teamData => {
 }
 
 // variable to prompt Engineer questions
-const promptEngineer = [
-  {
-    type: "input",
-    name: "engineerName",
-    message: "What is the name of the engineer? (Required)",
-    validate: (engineerNameInput) => {
-      if (engineerNameInput) {
-        return true;
-      } else {
-        console.log("You need to enter the engineer name!");
-        return false;
+const promptEngineer = () => {
+  inquirer
+    .prompt([
+      {
+        type: "input",
+        name: "engineerName",
+        message: "What is the name of the engineer? (Required)",
+        validate: (engineerNameInput) => {
+          if (engineerNameInput) {
+            return true;
+          } else {
+            console.log("You need to enter the engineer name!");
+            return false;
+          }
+        },
+      },
+      {
+        type: "input",
+        name: "engineerId",
+        message: "What is the ID Number of the engineer? (Required)",
+        validate: (engineerIdInput) => {
+          if (engineerIdInput) {
+            return true;
+          } else {
+            console.log("You need to enter the engineers ID Number!");
+            return false;
+          }
+        },
+      },
+      {
+        type: "link",
+        name: "engineerEmail",
+        message: "What is the email of the engineer? (Required)",
+        validate: (engineerEmailLink) => {
+          if (engineerEmailLink) {
+            return true;
+          } else {
+            console.log("You need to enter a email address!");
+            return false;
+          }
+        },
+      },
+      {
+        type: "input",
+        name: "github",
+        message: "Enter the engineers GitHub username (Required)",
+        validate: (engineerUsernameLink) => {
+          if (engineerUsernameLink) {
+            return true;
+          } else {
+            console.log("You need to enter a github username!");
+            return false;
+          }
+        }
       }
     ]).then(engineerData => {
       buildTeam(engineerData)
@@ -147,60 +193,66 @@ const empConfirm = () => {
  }
 
 // prompt Intern w/inquirer
-const promptIntern = [
-  {
-    type: "input",
-    name: "internName",
-    message: "What is the name of the intern? (Required)",
-    validate: (internNameInput) => {
-      if (internNameInput) {
-        return true;
-      } else {
-        console.log("You need to enter the intern name!");
-        return false;
-      }
-    },
-  },
-  {
-    type: "input",
-    name: "internId",
-    message: "What is the ID Number of the intern? (Required)",
-    validate: (internIdInput) => {
-      if (internIdInput) {
-        return true;
-      } else {
-        console.log("You need to enter the interns ID Number!");
-        return false;
-      }
-    },
-  },
-  {
-    type: "link",
-    name: "internEmail",
-    message: "What is the email of the intern? (Required)",
-    validate: (internEmailLink) => {
-      if (internEmailLink) {
-        return true;
-      } else {
-        console.log("You need to enter a email address!");
-        return false;
-      }
-    },
-  },
-  {
-    type: "input",
-    name: "internSchool",
-    message: "What is the interns school? (Required)",
-    validate: (internSchoolInput) => {
-      if (internSchoolInput) {
-        return true;
-      } else {
-        console.log("You need to enter the schools name!");
-        return false;
-      }
-    },
-  },
-];
+const promptIntern = () => {
+  inquirer
+    .prompt([
+      {
+        type: "input",
+        name: "internName",
+        message: "What is the name of the intern? (Required)",
+        validate: (internNameInput) => {
+          if (internNameInput) {
+            return true;
+          } else {
+            console.log("You need to enter the intern name!");
+            return false;
+          }
+        },
+      },
+      {
+        type: "input",
+        name: "internId",
+        message: "What is the ID Number of the intern? (Required)",
+        validate: (internIdInput) => {
+          if (internIdInput) {
+            return true;
+          } else {
+            console.log("You need to enter the interns ID Number!");
+            return false;
+          }
+        },
+      },
+      {
+        type: "link",
+        name: "internEmail",
+        message: "What is the email of the intern? (Required)",
+        validate: (internEmailLink) => {
+          if (internEmailLink) {
+            return true;
+          } else {
+            console.log("You need to enter a email address!");
+            return false;
+          }
+        },
+      },
+      {
+        type: "input",
+        name: "internSchool",
+        message: "What is the interns school? (Required)",
+        validate: (internSchoolInput) => {
+          if (internSchoolInput) {
+            return true;
+          } else {
+            console.log("You need to enter the schools name!");
+            return false;
+          }
+        },
+      },
+    ])
+    .then(internData => {
+      buildTeam(internData)
+    })
+}
 
 
 
@@ -243,36 +295,26 @@ const buildPg = (teamArray) => {
   }));
 }
 
-// function to ask for a new team member
-function initMember() {
-  inquirer.prompt(addMember).then((newEmp) => {
-    if (newEmp.newEmp === "Yes") {
-      loopQuestions();
-    }
-    if (newEmp.newEmp === "No") {
-      writeToFile("index.html", generatePage(teamArr));
-      console.log("Your team has been created!!");
-    }
-  });
-}
 
-// function to loop through emp ?s based on role
-function loopQuestions() {
-  inquirer.prompt(newRole).then((role) => {
-    if(role.memberRole === "Engineer") {
-      inquirer.prompt(promptEngineer).then((response) => {
-        let engineer = new Engineer(response.engineerName, response.engineerId, response.engineerEmail, response.github);
-        teamArr.push(engineer);
-        initMember();
-      })
-    } else if (role.memberRole === "Intern") {
-      inquirer.prompt(promptIntern).then((response) => {
-        let intern = new Intern(response.internName, response.internId, response.internEmail, response.internSchool);
-        teamArr.push(intern);
-        console.log(teamArr)
-        initMember();
-      })
-    } 
-  })
-}
-init();
+/**
+ * collect an array of team members
+ * inquire who is the manager?
+ * create manager object
+ * push to array of team members
+ * inquire if they would like to add new team member
+ *
+ * if they choose no then create our team page with all members in the array
+ *
+ * if they choose yes then inquire what type of member they would like to add?
+ *
+ * if they choose engineer then inquire all data for engineer
+ * create engineer object
+ * push to array of team members
+ * inquire if they would like to add new team member
+ *
+ * if they choose intern then inquire all data for intern
+ * create intern object
+ * push to array of team members
+ * inquire if they would like to add new team member
+ *
+ */
