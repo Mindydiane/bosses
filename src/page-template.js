@@ -92,7 +92,7 @@ const manager = team.filter(employee => employee.getRole() === 'Manager')
       <body>
           <header>
               <div class="container-lg flex-row justify-space-between text-align-center py-3">
-                  <h1 class="page-title text-light bg-danger py-2 px-3 text-center ">My Team</h1>
+                  <h1 class="page-title py-2 px-3 text-center ">My Team</h1>
               </div>
           </header>
           <main class="container-fluid d-inline-flex p-2 flex-wrap mxy-5 col-12 justify-content-center ml-auto ">
