@@ -11,4 +11,4 @@ A way to generate a team profile with the command line
 https://watch.screencastify.com/v/6QFtBNpqq7dUXhJjHBxF
 
 ## or watch it from YouTube:
-https://watch.screencastify.com/v/6QFtBNpqq7dUXhJjHBxF
+https://www.youtube.com/watch?v=rRNXOMI1gJw
