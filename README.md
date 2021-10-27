@@ -16,6 +16,8 @@ https://watch.screencastify.com/v/vKZNIKTpi9BV3S2gSCTU
 ## or Watch updated video from YouTube:
 https://youtu.be/NxeVRl47isw
 
+<br/>
+
 ### Watch 1st walkthrough video from Screencastify at:
 https://watch.screencastify.com/v/6QFtBNpqq7dUXhJjHBxF
 

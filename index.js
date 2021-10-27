@@ -15,6 +15,7 @@ const { rejects } = require("assert");
 const { resolve } = require("path");
 const displayPg = path.resolve(__dirname, "dist");
 const indexPath = path.join(displayPg, "index.html")
+// const displayPg = path.resolve(__dirname, "root");
 
 // all employees data storage
 const teamArray = [];
